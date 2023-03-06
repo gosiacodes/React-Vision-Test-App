@@ -52,7 +52,7 @@ const App = () => {
             </div>
           </div>
         </div>
-        <h2 className="page-title">OBS! Beta-version!</h2>
+        <h2 className="page-title beta">OBS! Beta-version!</h2>
       </main>
     </Fragment>
   );
