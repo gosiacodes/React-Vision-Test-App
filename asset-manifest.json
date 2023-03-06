@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/React-Vision-Test-App/static/css/main.6bddb26a.css",
+    "main.js": "/React-Vision-Test-App/static/js/main.19327ec0.js",
+    "index.html": "/React-Vision-Test-App/index.html",
+    "main.6bddb26a.css.map": "/React-Vision-Test-App/static/css/main.6bddb26a.css.map",
+    "main.19327ec0.js.map": "/React-Vision-Test-App/static/js/main.19327ec0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6bddb26a.css",
+    "static/js/main.19327ec0.js"
+  ]
+}
