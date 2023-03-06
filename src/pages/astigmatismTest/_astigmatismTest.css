@@ -1,0 +1,9 @@
+.astigmatism-img {
+  margin: 1rem;
+}
+
+@media only screen and (max-width: 430px) {
+  .astigmatism-img {
+    width: 80%;
+  }
+}
