@@ -21,11 +21,11 @@ const Header = () => {
             Hem
           </NavLink>
           <NavLink
-            to="/synskarp"
+            to="/synskarpa"
             className={"nav-link"}
             id={"nav-visual-acuity"}
           >
-            Synskärp
+            Synskärpa
           </NavLink>
           <NavLink
             to="/astigmatism"

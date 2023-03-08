@@ -15,7 +15,7 @@ root.render(
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<App />} />
-          <Route path="synskarp" element={<VisualAcuityTest />} />
+          <Route path="synskarpa" element={<VisualAcuityTest />} />
           <Route path="astigmatism" element={<AstigmatismTest />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Route>

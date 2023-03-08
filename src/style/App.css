@@ -57,6 +57,15 @@ button {
   cursor: pointer;
 }
 
+.blue-btn {
+  background-color: #4379b8;
+  color: #fff;
+}
+
+.blue-btn:hover {
+  background-color: #2f5581;
+}
+
 .text {
   line-height: 2;
 }
@@ -141,11 +150,12 @@ button {
     padding: 0.5rem;
   }
   .container-card {
+    /* width: 80%; */
     padding: 1.5rem;
   }
-  .container-card p {
+  /* .container-card p {
     font-size: 0.9rem;
-  }
+  } */
   .vision-test-img {
     width: 85%;
   }
