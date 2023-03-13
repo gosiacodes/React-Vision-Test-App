@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const VisualAcuityTest = () => {
   // Global settings
@@ -18,8 +19,13 @@ const VisualAcuityTest = () => {
   const [counter, setCounter] = useState(0);
   const [leftEyeScores, setLeftEyeScores] = useState(0);
   const [rightEyeScores, setRightEyeScores] = useState(0);
-  const [leftEye, setLeftEye] = useState(true);
-  const [rightEye, setRightEye] = useState(false);
+  const navigate = useNavigate();
+  let location = useLocation();
+  // const [leftEye, setLeftEye] = useState(location.state.leftEye);
+  // const [rightEye, setRightEye] = useState(location.state.rightEye);
+  const leftEye = location.state.leftEye;
+  const rightEye = location.state.rightEye;
+  console.log(leftEye, rightEye);
 
   // Testing resolution width & height
   // const ratio = window.devicePixelRatio;
@@ -66,7 +72,6 @@ const VisualAcuityTest = () => {
     } else if (randomImage === process.env.PUBLIC_URL + "/images/E_down.jpg") {
       setTumbelingEValue((tumbelingEValue) => (tumbelingEValue = "down"));
     }
-    // console.log(tumbelingEValue);
   }, [randomImage, tumbelingEValue]);
 
   useEffect(() => {
@@ -76,18 +81,14 @@ const VisualAcuityTest = () => {
 
   // Function for arrow-button click to check if correct arrow is clicked and to change size of E
   const clickedArrow = (e) => {
-    console.log("left: " + leftEye);
-    console.log("right: " + rightEye);
+    e.preventDefault();
     if (counter < 4) {
-      e.preventDefault();
       setCounter((counter) => (counter = counter + 1));
       let direction = e.currentTarget.name;
-      // console.log(direction);
       const randomIndex = Math.floor(Math.random() * tumbelingESrcList.length);
       setRandomImage(
         (randomImage) => (randomImage = tumbelingESrcList[randomIndex])
       );
-      // console.log(tumbelingEValue);
       if (direction === tumbelingEValue) {
         document.querySelector("#result").innerHTML = "correct!";
         setScores((scores) => scores + 1);
@@ -109,26 +110,33 @@ const VisualAcuityTest = () => {
       setEWith((eWidth) => eWidth * 0.8);
       console.log(eHeight, eWidth);
     }
-    if (counter === 4 && leftEye) {
+    if (counter === 4) {
+      if (leftEye) {
+        // setLeftEye(false);
+        // setRightEye(true);
+        navigate("/synskarpa-instruktioner", {
+          state: { leftEye: false, rightEye: true },
+        });
+        // navigate("/synskarpa-instruktioner", {
+        //   state: { leftEye: leftEye, rightEye: rightEye },
+        // });
+      } else if (rightEye) {
+        // setLeftEye(true);
+        // setRightEye(false);
+        navigate("/astigmatism-instruktioner", {
+          state: { leftEye: true, rightEye: false },
+        });
+        // navigate("/astigmatism", {
+        //   state: { leftEye: leftEye, rightEye: rightEye },
+        // });
+      }
       resetSettings();
-      handleRightEye();
     }
   };
 
   useEffect(() => {}, [leftEye, rightEye, counter]);
 
-  const handleRightEye = () => {
-    document.querySelector("#left-eye").style.display = "none";
-    document.querySelector("#right-eye").style.display = "inline-block";
-    setLeftEye((leftEye) => (leftEye = false));
-    setRightEye((rightEye) => (rightEye = true));
-    if (counter === 4 && rightEye) {
-      setRightEye((rightEye) => (rightEye = false));
-      console.log("left: " + leftEye);
-      console.log("right: " + rightEye);
-    }
-  };
-
+  // Function to reset scores and size of E
   const resetSettings = () => {
     console.log("reset eye");
     setCounter((counter) => (counter = 0));
@@ -136,8 +144,6 @@ const VisualAcuityTest = () => {
     document.querySelector("#result").innerHTML = "result";
     setEHeight((eHeight) => (eHeight = 20));
     setEWith((eWidth) => (eWidth = 20));
-    document.querySelector("#left-eye").style.display = "none";
-    document.querySelector("#right-eye").style.display = "inline-block";
   };
 
   return (
@@ -242,25 +248,50 @@ const VisualAcuityTest = () => {
             </div>
           </div>
           <div className="column">
-            <div className="text container-card">
-              <p>
-                Håll båda ögonen öppna och täck{" "}
-                <span id="left-eye" style={{ fontWeight: "bold" }}>
-                  vänster
-                </span>{" "}
-                <span
-                  id="right-eye"
-                  style={{ fontWeight: "bold", display: "none" }}
-                >
-                  höger
-                </span>{" "}
-                öga.
-              </p>
-              <p>Fokusera på E-symbolen.</p>
-              <p>
-                Klicka på piltangenterna för att ange i vilken riktning
-                E-symbolen är vänd.
-              </p>
+            <div className="container-card">
+              {leftEye ? (
+                <div className="eye-row">
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                    alt="eye open"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-hidden-64.png"}
+                    alt="eye hidden"
+                  />
+                </div>
+              ) : (
+                <div className="eye-row">
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-hidden-64.png"}
+                    alt="eye hidden"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                    alt="eye open"
+                  />
+                </div>
+              )}
+              <div className="text">
+                <p>
+                  Håll båda ögonen öppna och täck{" "}
+                  {leftEye ? (
+                    <span id="left-eye" style={{ fontWeight: "bold" }}>
+                      vänster
+                    </span>
+                  ) : (
+                    <span id="right-eye" style={{ fontWeight: "bold" }}>
+                      höger
+                    </span>
+                  )}{" "}
+                  öga.
+                </p>
+                <p>Fokusera på E-symbolen.</p>
+                <p>
+                  Klicka på piltangenterna för att ange i vilken riktning
+                  E-symbolen är vänd.
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ const App = () => {
   return (
     // Returning info text
     <Fragment>
-      <InfoPage/>
+      <InfoPage />
     </Fragment>
   );
 };

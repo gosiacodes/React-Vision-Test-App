@@ -60,6 +60,14 @@ button {
 .blue-btn {
   background-color: #4379b8;
   color: #fff;
+  font-size: 1rem;
+  width: 10rem;
+  margin: 0 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
 }
 
 .blue-btn:hover {
@@ -73,6 +81,7 @@ button {
 .container-card {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   background-color: #fff;
   border-radius: 1rem;
   padding: 2rem;
@@ -150,12 +159,8 @@ button {
     padding: 0.5rem;
   }
   .container-card {
-    /* width: 80%; */
     padding: 1.5rem;
   }
-  /* .container-card p {
-    font-size: 0.9rem;
-  } */
   .vision-test-img {
     width: 85%;
   }

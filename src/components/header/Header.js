@@ -2,39 +2,20 @@ import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
-  // Returning header with logo, title and links
+  // Returning header with logo and title with link
   return (
     <Fragment>
       <header className="header">
-        <div className="header-row">
-          <a href="https://imvilabs.com/" title="www.imvi.com" target={"blank"}>
-            <img
-              id="header-imvi-logo"
-              src={process.env.PUBLIC_URL + "/images/imvi-logo.png"}
-              alt="imvi labs logo"
-            />
-          </a>
+        <a href="https://imvilabs.com/" title="www.imvi.com" target={"blank"}>
+          <img
+            id="header-imvi-logo"
+            src={process.env.PUBLIC_URL + "/images/imvi-logo.png"}
+            alt="imvi labs logo"
+          />
+        </a>
+        <NavLink to="/" className={"nav-link"} id={"nav-home"}>
           <h1 className="header-title">Syntest</h1>
-        </div>
-        <div className="nav-group">
-          <NavLink to="/" className={"nav-link"} id={"nav-home"}>
-            Hem
-          </NavLink>
-          <NavLink
-            to="/synskarpa"
-            className={"nav-link"}
-            id={"nav-visual-acuity"}
-          >
-            Synskärpa
-          </NavLink>
-          <NavLink
-            to="/astigmatism"
-            className={"nav-link"}
-            id={"nav-astigmatism"}
-          >
-            Astigmatism
-          </NavLink>
-        </div>
+        </NavLink>
       </header>
     </Fragment>
   );

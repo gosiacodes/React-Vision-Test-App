@@ -1,12 +1,26 @@
 import { Fragment } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AstigmatismTest = () => {
+  // Global settings
+  const navigate = useNavigate();
+  let location = useLocation();
+  const leftEye = location.state.leftEye;
+  const rightEye = location.state.rightEye;
+  console.log(leftEye, rightEye);
+
+  // Function to get the value of answer and go to the next stage
   const clickedAstBtn = (e) => {
     e.preventDefault();
     let answer = e.currentTarget.value;
     console.log(answer);
-    document.querySelector("#left-eye-ast").style.display = "none";
-    document.querySelector("#right-eye-ast").style.display = "inline-block";
+    if (leftEye) {
+      navigate("/astigmatism-instruktioner", {
+        state: { leftEye: false, rightEye: true },
+      });
+    } else if (rightEye) {
+      navigate("/result", { state: { leftEye: false, rightEye: false } });
+    }
   };
 
   // Returning astigmatism test
@@ -42,26 +56,51 @@ const AstigmatismTest = () => {
             </div>
           </div>
           <div className="column">
-            <div className="text container-card">
-              <p>
-                Håll båda ögonen öppna och täck{" "}
-                <span id="left-eye-ast" style={{ fontWeight: "bold" }}>
-                  vänster
-                </span>{" "}
-                <span
-                  id="right-eye-ast"
-                  style={{ fontWeight: "bold", display: "none" }}
-                >
-                  höger
-                </span>{" "}
-                öga.
-              </p>
-              <p>Fokusera på mitten av halvcirkeln.</p>
-              <p>Visas alla linjer i samma svarta nyans?</p>
-              <p>
-                Ser du att vissa linjer (1-2-3-4-5-6-7) verkar suddiga eller
-                oklara i en eller flera riktningar?
-              </p>
+            <div className="container-card">
+              {leftEye ? (
+                <div className="eye-row">
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                    alt="eye open"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-hidden-64.png"}
+                    alt="eye hidden"
+                  />
+                </div>
+              ) : (
+                <div className="eye-row">
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-hidden-64.png"}
+                    alt="eye hidden"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                    alt="eye open"
+                  />
+                </div>
+              )}
+              <div className="text">
+                <p>
+                  Håll båda ögonen öppna och täck{" "}
+                  {leftEye ? (
+                    <span id="left-eye" style={{ fontWeight: "bold" }}>
+                      vänster
+                    </span>
+                  ) : (
+                    <span id="right-eye" style={{ fontWeight: "bold" }}>
+                      höger
+                    </span>
+                  )}{" "}
+                  öga.
+                </p>
+                <p>Fokusera på mitten av halvcirkeln.</p>
+                <p>Visas alla linjer i samma svarta nyans?</p>
+                <p>
+                  Ser du att vissa linjer (1-2-3-4-5-6-7) verkar suddiga eller
+                  oklara i en eller flera riktningar?
+                </p>
+              </div>
             </div>
             <div className="text container-card">
               <p>

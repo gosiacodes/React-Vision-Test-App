@@ -1,7 +1,6 @@
-@import './App.css';
-@import '../components/header/_header.css';
-@import '../pages/visualAcuityTest/_visualAcuityTest.css';
-@import '../pages/astigmatismTest/_astigmatismTest.css';
-
-
-
+@import "./App.css";
+@import "../components/header/_header.css";
+@import "../pages/visualAcuityTest/_visualAcuityTest.css";
+@import "../pages/astigmatismTest/_astigmatismTest.css";
+@import "../pages/stages/_stages.css";
+@import "../pages/result/_result.css";
