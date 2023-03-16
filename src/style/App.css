@@ -91,16 +91,6 @@ button {
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.7);
 }
 
-.nav-link-in-text {
-  color: #000;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.nav-link-in-text:hover {
-  color: #4379b8;
-}
-
 .vision-test-img {
   width: 85%;
   height: auto;
@@ -128,7 +118,8 @@ button {
   .page-title {
     font-size: 1.4rem;
   }
-  button {
+  button,
+  .blue-btn {
     width: 9rem;
     margin: 0 0.5rem;
     padding: 0.75rem 1rem;
@@ -153,7 +144,8 @@ button {
   .row {
     gap: 3rem;
   }
-  button {
+  button,
+  .blue-btn {
     font-size: 0.9rem;
     width: 7rem;
     padding: 0.5rem;
@@ -174,7 +166,8 @@ button {
   .row {
     gap: 2rem;
   }
-  button {
+  button,
+  .blue-btn {
     font-size: 0.85rem;
     width: 6rem;
     padding: 0.4rem;

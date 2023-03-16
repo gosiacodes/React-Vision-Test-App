@@ -44,8 +44,6 @@
 @media only screen and (max-width: 500px) {
   .header {
     padding: 1rem 1.5rem 0.5rem;
-    flex-direction: column;
-    gap: 0.5rem;
   }
 }
 

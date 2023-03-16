@@ -6,7 +6,14 @@ const StagePageAstT = () => {
   let location = useLocation();
   const leftEye = location.state.leftEye;
   const rightEye = location.state.rightEye;
+  const leftEyeScores = location.state.leftEyeScores;
+  const rightEyeScores = location.state.rightEyeScores;
+  const leftEyeAnswer = location.state.leftEyeAnswer
+    ? location.state.leftEyeAnswer
+    : "";
+  console.log(location);
   console.log(leftEye, rightEye);
+  console.log(leftEyeScores, rightEyeScores);
 
   return (
     // Returning info text
@@ -17,25 +24,73 @@ const StagePageAstT = () => {
           <div className="container-card">
             {leftEye ? (
               <div className="eye-row">
-                <img
-                  src={process.env.PUBLIC_URL + "/images/eye-open-96.png"}
-                  alt="eye open"
-                />
-                <img
-                  src={process.env.PUBLIC_URL + "/images/eye-hidden-96.png"}
-                  alt="eye hidden"
-                />
+                <picture>
+                  <source
+                    srcSet={
+                      process.env.PUBLIC_URL + "/images/eye-hidden-48.png"
+                    }
+                    media="(max-width: 440px)"
+                  />
+                  <source
+                    srcSet={
+                      process.env.PUBLIC_URL + "/images/eye-hidden-64.png"
+                    }
+                    media="(max-width: 770px)"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-hidden-96.png"}
+                    alt="eye hidden"
+                  />
+                </picture>
+                <picture>
+                  <source
+                    srcSet={process.env.PUBLIC_URL + "/images/eye-open-48.png"}
+                    media="(max-width: 440px)"
+                  />
+                  <source
+                    srcSet={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                    media="(max-width: 770px)"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-open-96.png"}
+                    alt="eye open"
+                  />
+                </picture>
               </div>
             ) : (
               <div className="eye-row">
-                <img
-                  src={process.env.PUBLIC_URL + "/images/eye-hidden-96.png"}
-                  alt="eye hidden"
-                />
-                <img
-                  src={process.env.PUBLIC_URL + "/images/eye-open-96.png"}
-                  alt="eye open"
-                />
+                <picture>
+                  <source
+                    srcSet={process.env.PUBLIC_URL + "/images/eye-open-48.png"}
+                    media="(max-width: 440px)"
+                  />
+                  <source
+                    srcSet={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                    media="(max-width: 770px)"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-open-96.png"}
+                    alt="eye open"
+                  />
+                </picture>
+                <picture>
+                  <source
+                    srcSet={
+                      process.env.PUBLIC_URL + "/images/eye-hidden-48.png"
+                    }
+                    media="(max-width: 440px)"
+                  />
+                  <source
+                    srcSet={
+                      process.env.PUBLIC_URL + "/images/eye-hidden-64.png"
+                    }
+                    media="(max-width: 770px)"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-hidden-96.png"}
+                    alt="eye hidden"
+                  />
+                </picture>
               </div>
             )}
             <div className="text">
@@ -53,10 +108,9 @@ const StagePageAstT = () => {
                 öga.
               </p>
               <p>Fokusera på mitten av halvcirkeln.</p>
-              <p>Visas alla linjer i samma svarta nyans?</p>
               <p>
-                Ser du att vissa linjer (1-2-3-4-5-6-7) verkar suddiga eller
-                oklara i en eller flera riktningar?
+                Visas alla linjer i samma svarta nyans eller ser du att vissa
+                linjer verkar suddiga eller oklara i en eller flera riktningar?
               </p>
             </div>
             <div className="row">
@@ -65,6 +119,9 @@ const StagePageAstT = () => {
                 state={{
                   leftEye: leftEye,
                   rightEye: rightEye,
+                  leftEyeScores: leftEyeScores,
+                  rightEyeScores: rightEyeScores,
+                  leftEyeAnswer: leftEyeAnswer,
                 }}
                 className={"blue-btn"}
               >

@@ -24,15 +24,15 @@ const InfoPage = () => {
               <div className="text">
                 <p>
                   För att kunna träna din ögonkoordination är det viktigt att du
-                  har en fungerande syn. Testa din syn gratis här!
+                  har en fungerande syn.
                 </p>
                 <p>
-                  För vår ögonträning är de två testerna relevanta: Synskärpa
-                  och Astigmatism.
+                  För vår ögonträning är två tester relevanta: synskärpa och
+                  astigmatism.
                 </p>
                 <p>
-                  Testerna ska göras på 1 meter avstånd från en datorskärm eller
-                  40 cm avstånd från en mobilskärm.
+                  Testerna ska göras på 40 cm avstånd från en mobilskärm eller 1
+                  meters avstånd från en datorskärm.
                 </p>
                 <p>
                   Om du använder glasögon / kontaktlinser för att se på håll

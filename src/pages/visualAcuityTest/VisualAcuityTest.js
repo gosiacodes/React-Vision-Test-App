@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const VisualAcuityTest = () => {
   // Global settings
+  const navigate = useNavigate();
+  let location = useLocation();
   const tumbelingESrcList = [
     process.env.PUBLIC_URL + "/images/E_left.jpg",
     process.env.PUBLIC_URL + "/images/E_right.jpg",
@@ -13,18 +15,19 @@ const VisualAcuityTest = () => {
     process.env.PUBLIC_URL + "/images/E_left.jpg"
   );
   const [tumbelingEValue, setTumbelingEValue] = useState("left");
-  const [scores, setScores] = useState(0);
   const [eWidth, setEWith] = useState(20);
   const [eHeight, setEHeight] = useState(20);
   const [counter, setCounter] = useState(0);
-  const [leftEyeScores, setLeftEyeScores] = useState(0);
+  const getLeftEyeScores = location.state.leftEyeScores
+    ? location.state.leftEyeScores
+    : 0;
+  const [leftEyeScores, setLeftEyeScores] = useState(getLeftEyeScores);
   const [rightEyeScores, setRightEyeScores] = useState(0);
-  const navigate = useNavigate();
-  let location = useLocation();
   // const [leftEye, setLeftEye] = useState(location.state.leftEye);
   // const [rightEye, setRightEye] = useState(location.state.rightEye);
   const leftEye = location.state.leftEye;
   const rightEye = location.state.rightEye;
+  console.log(location);
   console.log(leftEye, rightEye);
 
   // Testing resolution width & height
@@ -80,6 +83,8 @@ const VisualAcuityTest = () => {
   }, [eWidth, eHeight]);
 
   // Function for arrow-button click to check if correct arrow is clicked and to change size of E
+  // If correct arrow is clicked - to add 1 score to result-scores,
+  // if not correct - to subtract 1 score from result-scores
   const clickedArrow = (e) => {
     e.preventDefault();
     if (counter < 4) {
@@ -90,16 +95,12 @@ const VisualAcuityTest = () => {
         (randomImage) => (randomImage = tumbelingESrcList[randomIndex])
       );
       if (direction === tumbelingEValue) {
-        document.querySelector("#result").innerHTML = "correct!";
-        setScores((scores) => scores + 1);
         if (leftEye) {
           setLeftEyeScores((leftEyeScores) => leftEyeScores + 1);
         } else if (rightEye) {
           setRightEyeScores((rightEyeScores) => rightEyeScores + 1);
         }
       } else {
-        document.querySelector("#result").innerHTML = "wrong!";
-        setScores((scores) => scores - 1);
         if (leftEye) {
           setLeftEyeScores((leftEyeScores) => leftEyeScores - 1);
         } else if (rightEye) {
@@ -115,7 +116,11 @@ const VisualAcuityTest = () => {
         // setLeftEye(false);
         // setRightEye(true);
         navigate("/synskarpa-instruktioner", {
-          state: { leftEye: false, rightEye: true },
+          state: {
+            leftEye: false,
+            rightEye: true,
+            leftEyeScores: leftEyeScores,
+          },
         });
         // navigate("/synskarpa-instruktioner", {
         //   state: { leftEye: leftEye, rightEye: rightEye },
@@ -124,7 +129,12 @@ const VisualAcuityTest = () => {
         // setLeftEye(true);
         // setRightEye(false);
         navigate("/astigmatism-instruktioner", {
-          state: { leftEye: true, rightEye: false },
+          state: {
+            leftEye: true,
+            rightEye: false,
+            leftEyeScores: leftEyeScores,
+            rightEyeScores: rightEyeScores,
+          },
         });
         // navigate("/astigmatism", {
         //   state: { leftEye: leftEye, rightEye: rightEye },
@@ -140,8 +150,6 @@ const VisualAcuityTest = () => {
   const resetSettings = () => {
     console.log("reset eye");
     setCounter((counter) => (counter = 0));
-    setScores((scores) => (scores = 0));
-    document.querySelector("#result").innerHTML = "result";
     setEHeight((eHeight) => (eHeight = 20));
     setEWith((eWidth) => (eWidth = 20));
   };
@@ -237,39 +245,62 @@ const VisualAcuityTest = () => {
                 />
               </picture>
             </button>
-            <div className="row">
-              <h3 id="result">result</h3>
-              <h3 id="scores">{scores}</h3>
-              <h3 id="scores">counter: {counter}</h3>
-            </div>
-            <div className="row">
-              <h3 id="scores">left eye scores: {leftEyeScores}</h3>
-              <h3 id="scores">right eye scores: {rightEyeScores}</h3>
-            </div>
           </div>
           <div className="column">
             <div className="container-card">
               {leftEye ? (
                 <div className="eye-row">
-                  <img
-                    src={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
-                    alt="eye open"
-                  />
-                  <img
-                    src={process.env.PUBLIC_URL + "/images/eye-hidden-64.png"}
-                    alt="eye hidden"
-                  />
+                  <picture>
+                    <source
+                      srcSet={
+                        process.env.PUBLIC_URL + "/images/eye-hidden-48.png"
+                      }
+                      media="(max-width: 770px)"
+                    />
+                    <img
+                      src={process.env.PUBLIC_URL + "/images/eye-hidden-64.png"}
+                      alt="eye hidden"
+                    />
+                  </picture>
+                  <picture>
+                    <source
+                      srcSet={
+                        process.env.PUBLIC_URL + "/images/eye-open-48.png"
+                      }
+                      media="(max-width: 770px)"
+                    />
+                    <img
+                      src={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                      alt="eye open"
+                    />
+                  </picture>
                 </div>
               ) : (
                 <div className="eye-row">
-                  <img
-                    src={process.env.PUBLIC_URL + "/images/eye-hidden-64.png"}
-                    alt="eye hidden"
-                  />
-                  <img
-                    src={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
-                    alt="eye open"
-                  />
+                  <picture>
+                    <source
+                      srcSet={
+                        process.env.PUBLIC_URL + "/images/eye-open-48.png"
+                      }
+                      media="(max-width: 770px)"
+                    />
+                    <img
+                      src={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                      alt="eye open"
+                    />
+                  </picture>
+                  <picture>
+                    <source
+                      srcSet={
+                        process.env.PUBLIC_URL + "/images/eye-hidden-48.png"
+                      }
+                      media="(max-width: 770px)"
+                    />
+                    <img
+                      src={process.env.PUBLIC_URL + "/images/eye-hidden-64.png"}
+                      alt="eye hidden"
+                    />
+                  </picture>
                 </div>
               )}
               <div className="text">

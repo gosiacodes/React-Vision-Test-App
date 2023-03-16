@@ -6,6 +6,10 @@ const StagePageVAT = () => {
   let location = useLocation();
   const leftEye = location.state.leftEye;
   const rightEye = location.state.rightEye;
+  const getLeftEyeScores = location.state.leftEyeScores
+    ? location.state.leftEyeScores
+    : 0;
+  console.log(location);
   console.log(leftEye, rightEye);
 
   return (
@@ -17,25 +21,73 @@ const StagePageVAT = () => {
           <div className="container-card">
             {leftEye ? (
               <div className="eye-row">
-                <img
-                  src={process.env.PUBLIC_URL + "/images/eye-open-96.png"}
-                  alt="eye open"
-                />
-                <img
-                  src={process.env.PUBLIC_URL + "/images/eye-hidden-96.png"}
-                  alt="eye hidden"
-                />
+                <picture>
+                  <source
+                    srcSet={
+                      process.env.PUBLIC_URL + "/images/eye-hidden-48.png"
+                    }
+                    media="(max-width: 440px)"
+                  />
+                  <source
+                    srcSet={
+                      process.env.PUBLIC_URL + "/images/eye-hidden-64.png"
+                    }
+                    media="(max-width: 770px)"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-hidden-96.png"}
+                    alt="eye hidden"
+                  />
+                </picture>
+                <picture>
+                  <source
+                    srcSet={process.env.PUBLIC_URL + "/images/eye-open-48.png"}
+                    media="(max-width: 440px)"
+                  />
+                  <source
+                    srcSet={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                    media="(max-width: 770px)"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-open-96.png"}
+                    alt="eye open"
+                  />
+                </picture>
               </div>
             ) : (
               <div className="eye-row">
-                <img
-                  src={process.env.PUBLIC_URL + "/images/eye-hidden-96.png"}
-                  alt="eye hidden"
-                />
-                <img
-                  src={process.env.PUBLIC_URL + "/images/eye-open-96.png"}
-                  alt="eye open"
-                />
+                <picture>
+                  <source
+                    srcSet={process.env.PUBLIC_URL + "/images/eye-open-48.png"}
+                    media="(max-width: 440px)"
+                  />
+                  <source
+                    srcSet={process.env.PUBLIC_URL + "/images/eye-open-64.png"}
+                    media="(max-width: 770px)"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-open-96.png"}
+                    alt="eye open"
+                  />
+                </picture>
+                <picture>
+                  <source
+                    srcSet={
+                      process.env.PUBLIC_URL + "/images/eye-hidden-48.png"
+                    }
+                    media="(max-width: 440px)"
+                  />
+                  <source
+                    srcSet={
+                      process.env.PUBLIC_URL + "/images/eye-hidden-64.png"
+                    }
+                    media="(max-width: 770px)"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/eye-hidden-96.png"}
+                    alt="eye hidden"
+                  />
+                </picture>
               </div>
             )}
             <div className="text">
@@ -64,6 +116,7 @@ const StagePageVAT = () => {
                 state={{
                   leftEye: leftEye,
                   rightEye: rightEye,
+                  leftEyeScores: getLeftEyeScores,
                 }}
                 className={"blue-btn"}
               >

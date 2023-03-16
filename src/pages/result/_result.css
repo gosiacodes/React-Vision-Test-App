@@ -1,0 +1,30 @@
+.result {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.container-result {
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  border-top: 1px solid #4379b8;
+}
+
+.alert {
+  margin: 2rem 0;
+}
+
+@media only screen and (max-width: 430px) {
+  .result {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .container-result {
+    align-items: center;
+  }
+}
