@@ -139,12 +139,22 @@ const Result = () => {
                 </div>
               )}
             </div>
-            {leftEyeAnswer === "nej" ||
-            rightEyeAnswer === "nej" ||
-            leftEyeScores < 3 ||
-            rightEyeScores < 3 ? (
-              <div className="container-result line">
-                <div className="result alert">
+          </div>
+          <div className="info-result">
+            <h3>Tack för din tid!</h3>
+            <div className="row">
+              <NavLink to="https://imvilabs.com/" className={"blue-btn"}>
+                Till imvilabs
+              </NavLink>
+            </div>
+          </div>
+          {leftEyeAnswer === "nej" ||
+          rightEyeAnswer === "nej" ||
+          leftEyeScores < 3 ||
+          rightEyeScores < 3 ? (
+            <div className="container-card">
+              <div className="info-result">
+                <div className="result">
                   <picture>
                     <source
                       srcSet={
@@ -176,10 +186,10 @@ const Result = () => {
                   </NavLink>
                 </div>
               </div>
-            ) : (
-              ""
-            )}
-          </div>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </main>
     </Fragment>

@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <Fragment>
       <header className="header">
-        <a href="https://imvilabs.com/" title="www.imvi.com" target={"blank"}>
+        <a href="https://imvilabs.com/" title="www.imvilabs.com" target={"blank"}>
           <img
             id="header-imvi-logo"
             src={process.env.PUBLIC_URL + "/images/imvi-logo.png"}

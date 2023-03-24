@@ -63,7 +63,6 @@ const InfoPage = () => {
             </div>
           </div>
         </div>
-        <h2 className="page-title beta">OBS! Beta-version!</h2>
       </main>
     </Fragment>
   );

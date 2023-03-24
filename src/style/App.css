@@ -9,6 +9,7 @@
 
 body {
   font-family: Avenir LT Std, Arial, Helvetica, sans-serif;
+  padding-bottom: 5rem;
 }
 
 main {
@@ -151,7 +152,7 @@ button {
     padding: 0.5rem;
   }
   .container-card {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
   }
   .vision-test-img {
     width: 85%;
@@ -173,6 +174,6 @@ button {
     padding: 0.4rem;
   }
   .container-card {
-    padding: 1rem;
+    padding: 2rem 1rem;
   }
 }

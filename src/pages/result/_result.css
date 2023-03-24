@@ -11,12 +11,12 @@
   flex-direction: column;
 }
 
-.line {
-  border-top: 1px solid #4379b8;
-}
-
-.alert {
-  margin: 2rem 0;
+.info-result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
 @media only screen and (max-width: 430px) {
