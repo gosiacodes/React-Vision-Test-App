@@ -10,24 +10,29 @@ import AstigmatismTest from "./pages/astigmatismTest/AstigmatismTest";
 import StagePageVAT from "./pages/stages/StagePageVAT";
 import StagePageAstT from "./pages/stages/StagePageAstT";
 import Result from "./pages/result/Result";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
-    {/* <BrowserRouter> */}
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<App />} />
-          <Route path="synskarpa-instruktioner" element={<StagePageVAT />} />
-          <Route path="astigmatism-instruktioner" element={<StagePageAstT />} />
-          <Route path="synskarpa" element={<VisualAcuityTest />} />
-          <Route path="astigmatism" element={<AstigmatismTest />} />
-          <Route path="result" element={<Result />} />
-          {/* <Route path="*" element={<NotFound />} /> */}
-        </Route>
-      </Routes>
-    </HashRouter>
-    {/* </BrowserRouter> */}
+    <Provider store={store}>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<App />} />
+            <Route path="synskarpa-instruktioner" element={<StagePageVAT />} />
+            <Route
+              path="astigmatism-instruktioner"
+              element={<StagePageAstT />}
+            />
+            <Route path="synskarpa" element={<VisualAcuityTest />} />
+            <Route path="astigmatism" element={<AstigmatismTest />} />
+            <Route path="result" element={<Result />} />
+            {/* <Route path="*" element={<NotFound />} /> */}
+          </Route>
+        </Routes>
+      </HashRouter>
+    </Provider>
   </>
 );

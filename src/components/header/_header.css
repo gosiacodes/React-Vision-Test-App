@@ -32,6 +32,14 @@
   color: #4379b8;
 }
 
+.nav-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
 @media only screen and (max-width: 770px) {
   .header {
     padding: 1rem 2rem 0.5rem;

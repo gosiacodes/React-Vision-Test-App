@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const VisualAcuityTest = () => {
   // Global settings
@@ -25,8 +26,8 @@ const VisualAcuityTest = () => {
   const [rightEyeScores, setRightEyeScores] = useState(0);
   const leftEye = location.state.leftEye;
   const rightEye = location.state.rightEye;
-  console.log(location);
-  console.log(leftEye, rightEye);
+  const languageValue = useSelector((state) => state.languageValue);
+  console.log("Language value: " + languageValue);
 
   // Using effect to change tumbeling E value when E-image changes
   useEffect(() => {
@@ -103,7 +104,10 @@ const VisualAcuityTest = () => {
     // Returning visual acuity test
     <Fragment>
       <main>
-        <h2 className="page-title">Testa din synskärpa</h2>
+        <h2 className="page-title">
+          {languageValue === "svenska" && "Testa din synskärpa"}
+          {languageValue === "english" && "Test your visual acuity"}
+        </h2>
         <div className="row-col-layout">
           <div className="column">
             <button
@@ -248,26 +252,50 @@ const VisualAcuityTest = () => {
                   </picture>
                 </div>
               )}
-              <div className="text">
-                <p>
-                  Håll båda ögonen öppna och täck{" "}
-                  {leftEye ? (
-                    <span id="left-eye" style={{ fontWeight: "bold" }}>
-                      vänster
-                    </span>
-                  ) : (
-                    <span id="right-eye" style={{ fontWeight: "bold" }}>
-                      höger
-                    </span>
-                  )}{" "}
-                  öga.
-                </p>
-                <p>Fokusera på E-symbolen.</p>
-                <p>
-                  Klicka på piltangenterna för att ange i vilken riktning
-                  E-symbolen är vänd.
-                </p>
-              </div>
+              {languageValue === "svenska" && (
+                <div className="text">
+                  <p>
+                    Håll båda ögonen öppna och täck{" "}
+                    {leftEye ? (
+                      <span id="left-eye" style={{ fontWeight: "bold" }}>
+                        vänster
+                      </span>
+                    ) : (
+                      <span id="right-eye" style={{ fontWeight: "bold" }}>
+                        höger
+                      </span>
+                    )}{" "}
+                    öga.
+                  </p>
+                  <p>Fokusera på E-symbolen.</p>
+                  <p>
+                    Klicka på piltangenterna för att ange i vilken riktning
+                    E-symbolen är vänd.
+                  </p>
+                </div>
+              )}
+              {languageValue === "english" && (
+                <div className="text">
+                  <p>
+                    Keep both eyes open and cover the{" "}
+                    {leftEye ? (
+                      <span id="left-eye" style={{ fontWeight: "bold" }}>
+                        left
+                      </span>
+                    ) : (
+                      <span id="right-eye" style={{ fontWeight: "bold" }}>
+                        right
+                      </span>
+                    )}{" "}
+                    eye.
+                  </p>
+                  <p>Focus on the E symbol.</p>
+                  <p>
+                    Click the arrow keys to indicate which direction the E
+                    symbol is facing.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

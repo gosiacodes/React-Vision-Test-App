@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { useLocation, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Result = () => {
   let location = useLocation();
@@ -7,19 +8,24 @@ const Result = () => {
   const rightEyeScores = location.state.rightEyeScores;
   const leftEyeAnswer = location.state.leftEyeAnswer;
   const rightEyeAnswer = location.state.rightEyeAnswer;
-  console.log(location);
-  console.log(leftEyeScores, rightEyeScores);
-  console.log(leftEyeAnswer, rightEyeAnswer);
+  const languageValue = useSelector((state) => state.languageValue);
+  console.log("Language value: " + languageValue);
 
   return (
     // Returning result
     <Fragment>
       <main>
-        <h2 className="page-title">Ditt resultat</h2>
+        <h2 className="page-title">
+          {languageValue === "svenska" && "Ditt resultat"}
+          {languageValue === "english" && "Your result"}
+        </h2>
         <div className="column">
           <div className="container-card">
             <div className="text container-result">
-              <h3>Synskärpa</h3>
+              <h3>
+                {languageValue === "svenska" && "Synskärpa"}
+                {languageValue === "english" && "Visual acuity"}
+              </h3>
               {leftEyeScores >= 3 && rightEyeScores >= 3 ? (
                 <div className="result">
                   <picture>
@@ -45,10 +51,18 @@ const Result = () => {
                       alt="check icon by Akveo"
                     />
                   </picture>
-                  <p>
-                    Ditt resultat visar att du har ingen problem med din
-                    synskärpa.
-                  </p>
+                  {languageValue === "svenska" && (
+                    <p>
+                      Ditt resultat visar att du har ingen problem med din
+                      synskärpa.
+                    </p>
+                  )}
+                  {languageValue === "english" && (
+                    <p>
+                      Your result shows that you have no problem with your
+                      visual acuity.
+                    </p>
+                  )}
                 </div>
               ) : (
                 <div className="result">
@@ -72,17 +86,26 @@ const Result = () => {
                       alt="close icon by Akveo"
                     />
                   </picture>
-                  <p>
-                    Ditt resultat visar att du kan ha vissa problem med din
-                    synskärpa och vi rekommenderar att du uppsöker en optiker
-                    för att få detta verifierat.
-                  </p>
+                  {languageValue === "svenska" && (
+                    <p>
+                      Ditt resultat visar att du kan ha vissa problem med din
+                      synskärpa och vi rekommenderar att du uppsöker en optiker
+                      för att få detta verifierat.
+                    </p>
+                  )}
+                  {languageValue === "english" && (
+                    <p>
+                      Your result shows that you may have some problems with
+                      your visual acuity and we recommend that you see an
+                      optician to have this verified.
+                    </p>
+                  )}
                 </div>
               )}{" "}
             </div>
             <div className="text container-result">
               <h3>Astigmatism</h3>
-              {leftEyeAnswer === "ja" && rightEyeAnswer === "ja" ? (
+              {leftEyeAnswer === "yes" && rightEyeAnswer === "yes" ? (
                 <div className="result">
                   <picture>
                     <source
@@ -107,7 +130,17 @@ const Result = () => {
                       alt="check icon by Akveo"
                     />
                   </picture>
-                  <p>Det verkar som att du inte visar symtom på astigmatism.</p>
+                  {languageValue === "svenska" && (
+                    <p>
+                      Det verkar som att du inte visar symtom på astigmatism.
+                    </p>
+                  )}
+                  {languageValue === "english" && (
+                    <p>
+                      It appears that you are not showing symptoms of
+                      astigmatism.
+                    </p>
+                  )}
                 </div>
               ) : (
                 <div className="result">
@@ -131,25 +164,38 @@ const Result = () => {
                       alt="close icon by Akveo"
                     />
                   </picture>
-                  <p>
-                    Det verkar som att du visar symtom på astigmatism och vi
-                    rekommenderar att du uppsöker en optiker för att få detta
-                    verifierat.
-                  </p>
+                  {languageValue === "svenska" && (
+                    <p>
+                      Det verkar som att du visar symtom på astigmatism och vi
+                      rekommenderar att du uppsöker en optiker för att få detta
+                      verifierat.
+                    </p>
+                  )}
+                  {languageValue === "english" && (
+                    <p>
+                      It appears that you are showing symptoms of astigmatism
+                      and we recommend that you see an optician to have this
+                      verified.
+                    </p>
+                  )}
                 </div>
               )}
             </div>
           </div>
           <div className="info-result">
-            <h3>Tack för din tid!</h3>
+            <h3>
+              {languageValue === "svenska" && "Tack för din tid!"}
+              {languageValue === "english" && "Thank you for your time!"}
+            </h3>
             <div className="row">
               <NavLink to="https://imvilabs.com/" className={"blue-btn"}>
-                Till imvilabs
+                {languageValue === "svenska" && "Till imvilabs"}
+                {languageValue === "english" && "To imvilabs"}
               </NavLink>
             </div>
           </div>
-          {leftEyeAnswer === "nej" ||
-          rightEyeAnswer === "nej" ||
+          {leftEyeAnswer === "no" ||
+          rightEyeAnswer === "no" ||
           leftEyeScores < 3 ||
           rightEyeScores < 3 ? (
             <div className="container-card">
@@ -176,13 +222,16 @@ const Result = () => {
                     />
                   </picture>
                   <p className="text">
-                    Om du tror att du har svarat fel av misstag gör testet en
-                    gång till.
+                    {languageValue === "svenska" &&
+                      "Om du tror att du har svarat fel av misstag gör testet en gång till."}
+                    {languageValue === "english" &&
+                      "If you think you have answered incorrectly by mistake, take the test again."}
                   </p>
                 </div>
                 <div className="row">
                   <NavLink to="/" className={"blue-btn"}>
-                    Börja om
+                    {languageValue === "svenska" && "Börja om"}
+                    {languageValue === "english" && "Start over"}
                   </NavLink>
                 </div>
               </div>

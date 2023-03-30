@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AstigmatismTest = () => {
   // Global settings
@@ -10,10 +11,8 @@ const AstigmatismTest = () => {
   const leftEyeScores = location.state.leftEyeScores;
   const rightEyeScores = location.state.rightEyeScores;
   const leftEyeAnswer = location.state.leftEyeAnswer;
-  console.log(location);
-  console.log(leftEye, rightEye);
-  console.log(leftEyeScores, rightEyeScores);
-  console.log(leftEyeAnswer);
+  const languageValue = useSelector((state) => state.languageValue);
+  console.log("Language value: " + languageValue);
 
   // Function to get the value of answer and go to the next stage
   const clickedAstBtn = (e) => {
@@ -48,7 +47,10 @@ const AstigmatismTest = () => {
   return (
     <Fragment>
       <main>
-        <h2 className="page-title">Testa om du har astigmatism</h2>
+        <h2 className="page-title">
+          {languageValue === "svenska" && "Testa om du har astigmatism"}
+          {languageValue === "english" && "Test if you have astigmatism"}
+        </h2>
         <div className="row-col-layout">
           <div className="column">
             <img
@@ -57,21 +59,28 @@ const AstigmatismTest = () => {
               alt="astigmatism test chart"
             />
             <div className="column">
-              <p>Visas alla linjer i samma nyans?</p>
+              <p className="text">
+                {languageValue === "svenska" &&
+                  "Visas alla linjer i samma nyans?"}
+                {languageValue === "english" &&
+                  "Do all the lines appear in the same shade of black?"}
+              </p>
               <div className="row">
                 <button
                   className="blue-btn"
-                  value="ja"
+                  value="yes"
                   onClick={(event) => clickedAstBtn(event)}
                 >
-                  Ja
+                  {languageValue === "svenska" && "Ja"}
+                  {languageValue === "english" && "Yes"}
                 </button>
                 <button
                   className="blue-btn"
-                  value="nej"
+                  value="no"
                   onClick={(event) => clickedAstBtn(event)}
                 >
-                  Nej
+                  {languageValue === "svenska" && "Nej"}
+                  {languageValue === "english" && "No"}
                 </button>
               </div>
             </div>
@@ -133,27 +142,52 @@ const AstigmatismTest = () => {
                   </picture>
                 </div>
               )}
-              <div className="text">
-                <p>
-                  Håll båda ögonen öppna och täck{" "}
-                  {leftEye ? (
-                    <span id="left-eye" style={{ fontWeight: "bold" }}>
-                      vänster
-                    </span>
-                  ) : (
-                    <span id="right-eye" style={{ fontWeight: "bold" }}>
-                      höger
-                    </span>
-                  )}{" "}
-                  öga.
-                </p>
-                <p>Fokusera på mitten av halvcirkeln.</p>
-                <p>
-                  Visas alla linjer i samma svarta nyans eller ser du att vissa
-                  linjer verkar suddiga eller oklara i en eller flera
-                  riktningar?
-                </p>
-              </div>
+              {languageValue === "svenska" && (
+                <div className="text">
+                  <p>
+                    Håll båda ögonen öppna och täck{" "}
+                    {leftEye ? (
+                      <span id="left-eye" style={{ fontWeight: "bold" }}>
+                        vänster
+                      </span>
+                    ) : (
+                      <span id="right-eye" style={{ fontWeight: "bold" }}>
+                        höger
+                      </span>
+                    )}{" "}
+                    öga.
+                  </p>
+                  <p>Fokusera på mitten av halvcirkeln.</p>
+                  <p>
+                    Visas alla linjer i samma svarta nyans eller ser du att
+                    vissa linjer verkar suddiga eller oklara i en eller flera
+                    riktningar?
+                  </p>
+                </div>
+              )}
+              {languageValue === "english" && (
+                <div className="text">
+                  <p>
+                    Keep both eyes open and cover the{" "}
+                    {leftEye ? (
+                      <span id="left-eye" style={{ fontWeight: "bold" }}>
+                        left
+                      </span>
+                    ) : (
+                      <span id="right-eye" style={{ fontWeight: "bold" }}>
+                        right
+                      </span>
+                    )}{" "}
+                    eye.
+                  </p>
+                  <p>Focus on the center of the semicircle.</p>
+                  <p>
+                    Do all the lines appear in the same shade of black, or do
+                    you see that some lines appear blurred or unclear in one or
+                    more directions?
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
