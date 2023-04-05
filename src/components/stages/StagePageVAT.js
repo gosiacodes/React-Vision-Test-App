@@ -1,17 +1,18 @@
 import { Fragment } from "react";
-import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Card from "../UI/Card";
+import Button from "../UI/Button";
 
-const StagePageVAT = () => {
+const StagePageVAT = (props) => {
   // Global settings
-  let location = useLocation();
-  const leftEye = location.state.leftEye;
-  const rightEye = location.state.rightEye;
-  const getLeftEyeScores = location.state.leftEyeScores
-    ? location.state.leftEyeScores
-    : 0;
+  const leftEye = props.leftEye;
   const languageValue = useSelector((state) => state.languageValue);
-  console.log("Language value: " + languageValue);
+
+  // Function to go to Visual Acuity Test
+  const goToVAT = () => {
+    props.setShowStagePageVAT(false);
+    props.setShowVisualAcuityTest(true);
+  };
 
   return (
     // Returning info text
@@ -22,7 +23,7 @@ const StagePageVAT = () => {
           {languageValue === "english" && "Test your visual acuity"}
         </h2>
         <div className="column">
-          <div className="container-card">
+          <Card>
             {leftEye ? (
               <div className="eye-row">
                 <picture>
@@ -139,21 +140,18 @@ const StagePageVAT = () => {
               </div>
             )}
             <div className="row">
-              <NavLink
-                to="/synskarpa"
-                state={{
-                  leftEye: leftEye,
-                  rightEye: rightEye,
-                  leftEyeScores: getLeftEyeScores,
+              <Button
+                type="button"
+                onClick={(ev) => {
+                  ev.preventDefault();
+                  goToVAT();
                 }}
-                className={"blue-btn"}
               >
-                {" "}
                 {languageValue === "svenska" && "Nästa"}
                 {languageValue === "english" && "Next"}
-              </NavLink>
+              </Button>
             </div>
-          </div>
+          </Card>
         </div>
       </main>
     </Fragment>

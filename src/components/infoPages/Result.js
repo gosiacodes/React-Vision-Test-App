@@ -1,15 +1,26 @@
 import { Fragment } from "react";
-import { useLocation, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Card from "../UI/Card";
+import Button from "../UI/Button";
 
-const Result = () => {
-  let location = useLocation();
-  const leftEyeScores = location.state.leftEyeScores;
-  const rightEyeScores = location.state.rightEyeScores;
-  const leftEyeAnswer = location.state.leftEyeAnswer;
-  const rightEyeAnswer = location.state.rightEyeAnswer;
+const Result = (props) => {
+  // Global settings
+  const leftEyeScores = props.leftEyeScores;
+  const rightEyeScores = props.rightEyeScores;
+  const leftEyeAnswer = props.leftEyeAnswer;
+  const rightEyeAnswer = props.rightEyeAnswer;
   const languageValue = useSelector((state) => state.languageValue);
-  console.log("Language value: " + languageValue);
+
+  // Function to go to Welcome Page and reset settings
+  const goToWelcomePage = () => {
+    props.setShowResult(false);
+    props.setShowWelcomePage(true);
+    props.setLeftEye(true);
+    props.setLeftEyeScores(0);
+    props.setRightEyeScores(0);
+    props.setLeftEyeAnswer("");
+    props.setRightEyeAnswer("");
+  };
 
   return (
     // Returning result
@@ -20,7 +31,7 @@ const Result = () => {
           {languageValue === "english" && "Your result"}
         </h2>
         <div className="column">
-          <div className="container-card">
+          <Card>
             <div className="text container-result">
               <h3>
                 {languageValue === "svenska" && "Synskärpa"}
@@ -181,24 +192,26 @@ const Result = () => {
                 </div>
               )}
             </div>
-          </div>
+          </Card>
           <div className="info-result">
             <h3>
               {languageValue === "svenska" && "Tack för din tid!"}
               {languageValue === "english" && "Thank you for your time!"}
             </h3>
             <div className="row">
-              <NavLink to="https://imvilabs.com/" className={"blue-btn"}>
-                {languageValue === "svenska" && "Till imvilabs"}
-                {languageValue === "english" && "To imvilabs"}
-              </NavLink>
+              <a href="https://imvilabs.com/" title="www.imvilabs.com">
+                <Button type="button">
+                  {languageValue === "svenska" && "Till imvilabs"}
+                  {languageValue === "english" && "To imvilabs"}
+                </Button>
+              </a>
             </div>
           </div>
           {leftEyeAnswer === "no" ||
           rightEyeAnswer === "no" ||
           leftEyeScores < 3 ||
           rightEyeScores < 3 ? (
-            <div className="container-card">
+            <Card>
               <div className="info-result">
                 <div className="result">
                   <picture>
@@ -229,13 +242,19 @@ const Result = () => {
                   </p>
                 </div>
                 <div className="row">
-                  <NavLink to="/" className={"blue-btn"}>
+                  <Button
+                    type="button"
+                    onClick={(ev) => {
+                      ev.preventDefault();
+                      goToWelcomePage();
+                    }}
+                  >
                     {languageValue === "svenska" && "Börja om"}
                     {languageValue === "english" && "Start over"}
-                  </NavLink>
+                  </Button>
                 </div>
               </div>
-            </div>
+            </Card>
           ) : (
             ""
           )}

@@ -1,16 +1,20 @@
 import { Fragment } from "react";
-import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Card from "../UI/Card";
+import Button from "../UI/Button";
 
-const InfoPage = () => {
+const WelcomePage = (props) => {
   // Global settings
-  let leftEye = true;
-  let rightEye = false;
   const languageValue = useSelector((state) => state.languageValue);
-  console.log("Header language value: " + languageValue);
+
+  // Function to go to Stage Page for Visual Acuity Test
+  const goToStagePageVAT = () => {
+    props.setShowWelcomePage(false);
+    props.setShowStagePageVAT(true);
+  };
 
   return (
-    // Returning info text
+    // Returning info text on welcome page
     <Fragment>
       <main>
         <h2 className="page-title">
@@ -26,7 +30,7 @@ const InfoPage = () => {
             />
           </div>
           <div className="column">
-            <div className="container-card">
+            <Card>
               {languageValue === "svenska" && (
                 <div className="text">
                   <p>
@@ -86,20 +90,19 @@ const InfoPage = () => {
                 </div>
               )}
               <div className="row">
-                <NavLink
-                  to="/synskarpa-instruktioner"
-                  state={{
-                    leftEye: leftEye,
-                    rightEye: rightEye,
+                <Button
+                  type="button"
+                  onClick={(ev) => {
+                    ev.preventDefault();
+                    goToStagePageVAT();
                   }}
-                  className={"blue-btn"}
                 >
                   {" "}
                   {languageValue === "svenska" && "Gör testet"}
                   {languageValue === "english" && "Do the test"}
-                </NavLink>
+                </Button>
               </div>
-            </div>
+            </Card>
           </div>
         </div>
       </main>
@@ -107,4 +110,4 @@ const InfoPage = () => {
   );
 };
 
-export default InfoPage;
+export default WelcomePage;

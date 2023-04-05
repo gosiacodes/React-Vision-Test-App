@@ -1,45 +1,31 @@
 import { Fragment } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Card from "../UI/Card";
+import Button from "../UI/Button";
 
-const AstigmatismTest = () => {
+const AstigmatismTest = (props) => {
   // Global settings
-  const navigate = useNavigate();
-  let location = useLocation();
-  const leftEye = location.state.leftEye;
-  const rightEye = location.state.rightEye;
-  const leftEyeScores = location.state.leftEyeScores;
-  const rightEyeScores = location.state.rightEyeScores;
-  const leftEyeAnswer = location.state.leftEyeAnswer;
+  const leftEye = props.leftEye;
+  const rightEye = props.rightEye;
   const languageValue = useSelector((state) => state.languageValue);
-  console.log("Language value: " + languageValue);
 
   // Function to get the value of answer and go to the next stage
   const clickedAstBtn = (e) => {
     e.preventDefault();
     let answer = e.currentTarget.value;
-    console.log(answer);
+    // console.log(answer);
     if (leftEye) {
-      navigate("/astigmatism-instruktioner", {
-        state: {
-          leftEye: false,
-          rightEye: true,
-          leftEyeScores: leftEyeScores,
-          rightEyeScores: rightEyeScores,
-          leftEyeAnswer: answer,
-        },
-      });
+      props.setLeftEyeAnswer(answer);
+      props.setShowAstTest(false);
+      props.setShowStagePageAstT(true);
+      props.setLeftEye(false);
+      props.setRightEye(true);
     } else if (rightEye) {
-      navigate("/result", {
-        state: {
-          leftEye: false,
-          rightEye: false,
-          leftEyeScores: leftEyeScores,
-          rightEyeScores: rightEyeScores,
-          leftEyeAnswer: leftEyeAnswer,
-          rightEyeAnswer: answer,
-        },
-      });
+      props.setRightEyeAnswer(answer);
+      props.setShowAstTest(false);
+      props.setShowResult(true);
+      props.setLeftEye(false);
+      props.setRightEye(false);
     }
   };
 
@@ -66,27 +52,29 @@ const AstigmatismTest = () => {
                   "Do all the lines appear in the same shade of black?"}
               </p>
               <div className="row">
-                <button
+                <Button
+                  type="submit"
                   className="blue-btn"
                   value="yes"
                   onClick={(event) => clickedAstBtn(event)}
                 >
                   {languageValue === "svenska" && "Ja"}
                   {languageValue === "english" && "Yes"}
-                </button>
-                <button
+                </Button>
+                <Button
+                  type="submit"
                   className="blue-btn"
                   value="no"
                   onClick={(event) => clickedAstBtn(event)}
                 >
                   {languageValue === "svenska" && "Nej"}
                   {languageValue === "english" && "No"}
-                </button>
+                </Button>
               </div>
             </div>
           </div>
           <div className="column">
-            <div className="container-card">
+            <Card>
               {leftEye ? (
                 <div className="eye-row">
                   <picture>
@@ -188,7 +176,7 @@ const AstigmatismTest = () => {
                   </p>
                 </div>
               )}
-            </div>
+            </Card>
           </div>
         </div>
       </main>

@@ -1,19 +1,18 @@
 import { Fragment } from "react";
-import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Card from "../UI/Card";
+import Button from "../UI/Button";
 
-const StagePageAstT = () => {
+const StagePageAstT = (props) => {
   // Global settings
-  let location = useLocation();
-  const leftEye = location.state.leftEye;
-  const rightEye = location.state.rightEye;
-  const leftEyeScores = location.state.leftEyeScores;
-  const rightEyeScores = location.state.rightEyeScores;
-  const leftEyeAnswer = location.state.leftEyeAnswer
-    ? location.state.leftEyeAnswer
-    : "";
+  const leftEye = props.leftEye;
   const languageValue = useSelector((state) => state.languageValue);
-  console.log("Language value: " + languageValue);
+
+  // Function to go to Astigmatism Test
+  const goToAstT = () => {
+    props.setShowStagePageAstT(false);
+    props.setShowAstTest(true);
+  };
 
   return (
     // Returning info text
@@ -24,7 +23,7 @@ const StagePageAstT = () => {
           {languageValue === "english" && "Test if you have astigmatism"}
         </h2>
         <div className="column">
-          <div className="container-card">
+          <Card>
             {leftEye ? (
               <div className="eye-row">
                 <picture>
@@ -143,23 +142,18 @@ const StagePageAstT = () => {
               </div>
             )}
             <div className="row">
-              <NavLink
-                to="/astigmatism"
-                state={{
-                  leftEye: leftEye,
-                  rightEye: rightEye,
-                  leftEyeScores: leftEyeScores,
-                  rightEyeScores: rightEyeScores,
-                  leftEyeAnswer: leftEyeAnswer,
+              <Button
+                type="button"
+                onClick={(ev) => {
+                  ev.preventDefault();
+                  goToAstT();
                 }}
-                className={"blue-btn"}
               >
-                {" "}
                 {languageValue === "svenska" && "Nästa"}
                 {languageValue === "english" && "Next"}
-              </NavLink>
+              </Button>
             </div>
-          </div>
+          </Card>
         </div>
       </main>
     </Fragment>
