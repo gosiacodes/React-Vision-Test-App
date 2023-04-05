@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/React-Vision-Test-App/static/css/main.fd353d80.css",
-    "main.js": "/React-Vision-Test-App/static/js/main.0e6cdb23.js",
+    "main.css": "/React-Vision-Test-App/static/css/main.8ed34a03.css",
+    "main.js": "/React-Vision-Test-App/static/js/main.c5ca1bad.js",
     "index.html": "/React-Vision-Test-App/index.html",
-    "main.fd353d80.css.map": "/React-Vision-Test-App/static/css/main.fd353d80.css.map",
-    "main.0e6cdb23.js.map": "/React-Vision-Test-App/static/js/main.0e6cdb23.js.map"
+    "main.8ed34a03.css.map": "/React-Vision-Test-App/static/css/main.8ed34a03.css.map",
+    "main.c5ca1bad.js.map": "/React-Vision-Test-App/static/js/main.c5ca1bad.js.map"
   },
   "entrypoints": [
-    "static/css/main.fd353d80.css",
-    "static/js/main.0e6cdb23.js"
+    "static/css/main.8ed34a03.css",
+    "static/js/main.c5ca1bad.js"
   ]
 }
