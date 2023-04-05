@@ -1,11 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Card from "../UI/Card";
+import ArrowButton from "../UI/ArrowButton";
 
-const VisualAcuityTest = () => {
+const VisualAcuityTest = (props) => {
   // Global settings
-  const navigate = useNavigate();
-  let location = useLocation();
   const tumbelingESrcList = [
     process.env.PUBLIC_URL + "/images/E_left.jpg",
     process.env.PUBLIC_URL + "/images/E_right.jpg",
@@ -19,15 +18,11 @@ const VisualAcuityTest = () => {
   const [eWidth, setEWith] = useState(20);
   const [eHeight, setEHeight] = useState(20);
   const [counter, setCounter] = useState(0);
-  const getLeftEyeScores = location.state.leftEyeScores
-    ? location.state.leftEyeScores
-    : 0;
-  const [leftEyeScores, setLeftEyeScores] = useState(getLeftEyeScores);
-  const [rightEyeScores, setRightEyeScores] = useState(0);
-  const leftEye = location.state.leftEye;
-  const rightEye = location.state.rightEye;
+  const leftEye = props.leftEye;
+  const rightEye = props.rightEye;
+  const leftEyeScores = props.leftEyeScores;
+  const rightEyeScores = props.rightEyeScores;
   const languageValue = useSelector((state) => state.languageValue);
-  console.log("Language value: " + languageValue);
 
   // Using effect to change tumbeling E value when E-image changes
   useEffect(() => {
@@ -52,29 +47,24 @@ const VisualAcuityTest = () => {
   useEffect(() => {
     if (counter === 4) {
       if (leftEye) {
-        navigate("/synskarpa-instruktioner", {
-          state: {
-            leftEye: false,
-            rightEye: true,
-            leftEyeScores: leftEyeScores,
-          },
-        });
+        // Go to Stage Page for Visual Acuity Test
+        props.setShowVisualAcuityTest(false);
+        props.setShowStagePageVAT(true);
+        props.setLeftEye(false);
+        props.setRightEye(true);
       } else if (rightEye) {
-        navigate("/astigmatism-instruktioner", {
-          state: {
-            leftEye: true,
-            rightEye: false,
-            leftEyeScores: leftEyeScores,
-            rightEyeScores: rightEyeScores,
-          },
-        });
+        // Go to Stage Page for Astigmatism Test
+        props.setShowVisualAcuityTest(false);
+        props.setShowStagePageAstT(true);
+        props.setLeftEye(true);
+        props.setRightEye(false);
       }
       // Reseting counter and size of E
       setCounter((counter) => (counter = 0));
       setEHeight((eHeight) => (eHeight = 20));
       setEWith((eWidth) => (eWidth = 20));
     }
-  }, [counter, leftEye, leftEyeScores, navigate, rightEye, rightEyeScores]);
+  }, [counter, leftEye, rightEye, props]);
 
   // Function for arrow-button click to check if correct arrow is clicked and to change size of E
   // If correct arrow is clicked - to add 1 score to result-scores
@@ -89,14 +79,16 @@ const VisualAcuityTest = () => {
       );
       if (direction === tumbelingEValue) {
         if (leftEye) {
-          setLeftEyeScores((leftEyeScores) => leftEyeScores + 1);
+          props.setLeftEyeScores(leftEyeScores + 1);
+          // console.log(leftEyeScores);
         } else if (rightEye) {
-          setRightEyeScores((rightEyeScores) => rightEyeScores + 1);
+          props.setRightEyeScores(rightEyeScores + 1);
+          // console.log(rightEyeScores);
         }
       }
       setEHeight((eHeight) => eHeight * 0.8);
       setEWith((eWidth) => eWidth * 0.8);
-      console.log(eHeight, eWidth);
+      // console.log(eHeight, eWidth);
     }
   };
 
@@ -109,7 +101,7 @@ const VisualAcuityTest = () => {
           {languageValue === "english" && "Test your visual acuity"}
         </h2>
         <div className="row-col-layout">
-          <div className="column">
+          {/* <div className="column">
             <button
               name="up"
               className="arrow-btn"
@@ -194,9 +186,27 @@ const VisualAcuityTest = () => {
                 />
               </picture>
             </button>
+          </div> */}
+          {/* test */}
+        <div className="column">
+          <ArrowButton name="up" onClick={(event) => clickedArrow(event)} />
+          <div className="row">
+            <ArrowButton name="left" onClick={(event) => clickedArrow(event)} />
+            <img
+              className="e-img"
+              src={randomImage}
+              alt="tumbling E"
+              value={tumbelingEValue}
+            />
+            <ArrowButton
+              name="right"
+              onClick={(event) => clickedArrow(event)}
+            />
           </div>
+          <ArrowButton name="down" onClick={(event) => clickedArrow(event)} />
+        </div>
           <div className="column">
-            <div className="container-card">
+            <Card>
               {leftEye ? (
                 <div className="eye-row">
                   <picture>
@@ -296,7 +306,7 @@ const VisualAcuityTest = () => {
                   </p>
                 </div>
               )}
-            </div>
+            </Card>
           </div>
         </div>
       </main>

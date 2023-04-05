@@ -1,8 +1,8 @@
 import { Fragment, useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 const Header = () => {
+  // Global settings
   const [language, setLanguage] = useState("svenska");
   const dispatch = useDispatch();
 
@@ -12,13 +12,18 @@ const Header = () => {
     dispatch({ type: "UPDATE_HEADER_VALUE", payload: language });
   }, [language, dispatch]);
 
-  // Function to change language in the app 
+  // Function to change language in the app
   const changeLanguage = () => {
     if (language === "svenska") {
       setLanguage("english");
     } else {
       setLanguage("svenska");
     }
+  };
+
+  // Function to reset app / reload page and reset settings
+  const resetApp = () => {
+    window.location.reload();
   };
 
   // Returning header with logo and title with link
@@ -37,12 +42,17 @@ const Header = () => {
           />
         </a>
         <div className="nav-row">
-          <NavLink to="/" className={"nav-link"} id={"nav-home"}>
-            <h1 className="header-title">
-              {language === "svenska" && "Syntest"}
-              {language === "english" && "Vision test"}
-            </h1>
-          </NavLink>
+          <h1
+            className="header-title"
+            title="Reset Test"
+            onClick={(ev) => {
+              ev.preventDefault();
+              resetApp();
+            }}
+          >
+            {language === "svenska" && "Syntest"}
+            {language === "english" && "Vision test"}
+          </h1>
           {language === "svenska" && (
             <img
               src={process.env.PUBLIC_URL + "/images/en.png"}

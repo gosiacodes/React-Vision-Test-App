@@ -1,12 +1,12 @@
 // Copyright 2023 imvi labs & Malgorzata Pick
 import { Fragment } from "react";
-import InfoPage from "./components/infoPage/InfoPage";
+import VisionTestApp from "./components/visionTestApp/VisionTestApp";
 
 const App = () => {
   return (
-    // Returning info text
+    // Returning main app component
     <Fragment>
-      <InfoPage />
+      <VisionTestApp />
     </Fragment>
   );
 };
