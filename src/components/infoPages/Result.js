@@ -201,8 +201,8 @@ const Result = (props) => {
             <div className="row">
               <a href="https://imvilabs.com/" title="www.imvilabs.com">
                 <Button type="button">
-                  {languageValue === "svenska" && "Till imvilabs"}
-                  {languageValue === "english" && "To imvilabs"}
+                  {languageValue === "svenska" && "Till imvi labs"}
+                  {languageValue === "english" && "To imvi labs"}
                 </Button>
               </a>
             </div>

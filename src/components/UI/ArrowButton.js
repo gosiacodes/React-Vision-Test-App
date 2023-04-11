@@ -3,7 +3,7 @@ import React from "react";
 const ArrowButton = (props) => {
   return (
     <button
-      type = "submit"
+      type="submit"
       name={props.name}
       className="arrow-btn"
       onClick={props.onClick}
