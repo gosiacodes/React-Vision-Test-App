@@ -80,15 +80,12 @@ const VisualAcuityTest = (props) => {
       if (direction === tumbelingEValue) {
         if (leftEye) {
           props.setLeftEyeScores(leftEyeScores + 1);
-          // console.log(leftEyeScores);
         } else if (rightEye) {
           props.setRightEyeScores(rightEyeScores + 1);
-          // console.log(rightEyeScores);
         }
       }
-      setEHeight((eHeight) => eHeight * 0.8);
-      setEWith((eWidth) => eWidth * 0.8);
-      // console.log(eHeight, eWidth);
+      setEHeight((eHeight) => Math.round(eHeight * 0.84));
+      setEWith((eWidth) => Math.round(eWidth * 0.84));
     }
   };
 
@@ -101,110 +98,26 @@ const VisualAcuityTest = (props) => {
           {languageValue === "english" && "Test your visual acuity"}
         </h2>
         <div className="row-col-layout">
-          {/* <div className="column">
-            <button
-              name="up"
-              className="arrow-btn"
-              onClick={(event) => clickedArrow(event)}
-            >
-              {" "}
-              <picture>
-                <source
-                  srcSet={process.env.PUBLIC_URL + "/images/arrow_up_32.png"}
-                  media="(max-width: 390px)"
-                />
-                <img
-                  className="arrow-img"
-                  src={process.env.PUBLIC_URL + "/images/arrow_up_48.png"}
-                  alt="arrow up"
-                />
-              </picture>
-            </button>
+          <div className="column">
+            <ArrowButton name="up" onClick={(event) => clickedArrow(event)} />
             <div className="row">
-              <button
+              <ArrowButton
                 name="left"
-                className="arrow-btn"
                 onClick={(event) => clickedArrow(event)}
-              >
-                {" "}
-                <picture>
-                  <source
-                    srcSet={
-                      process.env.PUBLIC_URL + "/images/arrow_left_32.png"
-                    }
-                    media="(max-width: 390px)"
-                  />
-                  <img
-                    className="arrow-img"
-                    src={process.env.PUBLIC_URL + "/images/arrow_left_48.png"}
-                    alt="arrow left"
-                  />
-                </picture>
-              </button>
+              />
               <img
                 className="e-img"
                 src={randomImage}
                 alt="tumbling E"
                 value={tumbelingEValue}
               />
-              <button
+              <ArrowButton
                 name="right"
-                className="arrow-btn"
                 onClick={(event) => clickedArrow(event)}
-              >
-                {" "}
-                <picture>
-                  <source
-                    srcSet={
-                      process.env.PUBLIC_URL + "/images/arrow_right_32.png"
-                    }
-                    media="(max-width: 390px)"
-                  />
-                  <img
-                    className="arrow-img"
-                    src={process.env.PUBLIC_URL + "/images/arrow_right_48.png"}
-                    alt="arrow right"
-                  />
-                </picture>
-              </button>
+              />
             </div>
-            <button
-              name="down"
-              className="arrow-btn"
-              onClick={(event) => clickedArrow(event)}
-            >
-              {" "}
-              <picture>
-                <source
-                  srcSet={process.env.PUBLIC_URL + "/images/arrow_down_32.png"}
-                  media="(max-width: 390px)"
-                />
-                <img
-                  className="arrow-img"
-                  src={process.env.PUBLIC_URL + "/images/arrow_down_48.png"}
-                  alt="arrow down"
-                />
-              </picture>
-            </button>
-          </div> */}
-          {/* test */}
-        <div className="column">
-          <ArrowButton name="up" onClick={(event) => clickedArrow(event)} />
-          <div className="row">
-            <ArrowButton name="left" onClick={(event) => clickedArrow(event)} />
-            <img
-              className="e-img"
-              src={randomImage}
-              alt="tumbling E"
-              value={tumbelingEValue}
-            />
-            <ArrowButton
-              name="right"
-              onClick={(event) => clickedArrow(event)}
-            />
+            <ArrowButton name="down" onClick={(event) => clickedArrow(event)} />
           </div>
-          <ArrowButton name="down" onClick={(event) => clickedArrow(event)} />
-        </div>
           <div className="column">
             <Card>
               {leftEye ? (
