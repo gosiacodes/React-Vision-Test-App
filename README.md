@@ -1,4 +1,4 @@
-:sparkles: React Vision Test App :sparkles:
+# :sparkles: React Vision Test App :sparkles:
 
 React Vision Test App (testing visual acuity and astigmatism) - internship project (2023)
 
