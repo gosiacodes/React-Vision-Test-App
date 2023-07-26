@@ -1,4 +1,24 @@
-# Getting Started with Create React App
+:sparkles: React Vision Test App :sparkles:
+
+React Vision Test App (testing visual acuity and astigmatism) - internship project (2023)
+
+https://gosiacodes.github.io/React-Vision-Test-App/
+
+## :pushpin: _How does the application work?_
+
+You can test your both eyes with the eye chart with E-symbol.
+
+You have to click the arrow keys to indicate which direction the E symbol is facing.
+
+E-symbol changes directions and shrinks for each click on the arrow.
+
+Then you test your Astigmatism and answer if all lines appear the same shade.
+
+At the end comes the result. You can repeat test if you want. 
+
+****************************************************************
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
