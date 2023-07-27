@@ -16,6 +16,8 @@ Then you test your Astigmatism and answer if all lines appear the same shade.
 
 At the end comes the result. You can repeat test if you want. 
 
+Application has two language versions: English and Swedish, which changes with help of Redux.
+
 ****************************************************************
 
 ## Getting Started with Create React App
